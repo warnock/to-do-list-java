@@ -14,4 +14,19 @@ public class CategoryTest {
     Category testCategory = new Category("Home");
     assertEquals("Home", testCategory.getName());
   }
+
+  @Test
+  public void all_returnsAllInstancesOfCategory_true() {
+    Category firstCategory = new Category("Home");
+    Category secondCategory = new Category("Work");
+    assertEquals(true, Category.all().contains(firstCategory));
+    assertEquals(true, Category.all().contains(secondCategory));
+  }
+
+  @Test
+  public void clear_emptiesAllTasksFromArrayList_0() {
+    Category testCategory = new Category("Home");
+    Category.clear();
+    assertEquals(0, Category.all().size());
+  }
 }
