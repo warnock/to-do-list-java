@@ -29,4 +29,26 @@ public class CategoryTest {
     Category.clear();
     assertEquals(0, Category.all().size());
   }
+
+  @Test
+  public void getId_categoriesInstantiateWithID_1() {
+    Category.clear();
+    Category testCategory = new Category("Home");
+    assertEquals(1, testCategory.getId());
+  }
+
+  @Test
+  public void find_returnsCategoryWithSameId_secondCategory() {
+    Category.clear();
+    Category firstCategory = new Category("Home");
+    Category secondCategory = new Category("Work");
+    assertEquals(secondCategory, Category.find(secondCategory.getId()));
+  }
+
+  @Test
+  public void getTasks_initiallyReturnsEmptyList_ArrayList() {
+    Category.clear();
+    Category testCategory = new Category("Home");
+    assertEquals(0, testCategory.getTasks().size());
+  }
 }
