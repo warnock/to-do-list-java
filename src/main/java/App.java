@@ -12,27 +12,28 @@ public class App {
 
     get("/", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-      model.put("tasks", request.session().attribute("tasks"));
       model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("tasks/new", (request, response) ->{
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/task-form.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/task", (request, response) -> {
+      Map<String, Object> model = new HashMap<String, Object>();
+      model.put("tasks", Task.all());
+      model.put ("template", "templates/tasks.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
 
     post("/tasks", (request, response) -> {
       Map<String, Object> model = new HashMap<String, Object>();
-
-      ArrayList<Task> tasks = request.session().attribute("tasks");
-      if(tasks == null) {
-        tasks = new ArrayList<Task>();
-        request.session().attribute("tasks", tasks);
-      }
-
-      String description = request.queryParams("description");
-      Task newTask = new Task(description);
-      tasks.add(newTask);
-
+      String description = request.queryParams("descrition");
       model.put("template", "templates/success.vtl");
       return new ModelAndView(model, layout);
     }, new VelocityTemplateEngine());
-
   }
 }
