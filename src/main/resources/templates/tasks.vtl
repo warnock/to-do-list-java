@@ -2,7 +2,7 @@
 #if ($tasks)
   <ul>
     #foreach ($task in $tasks)
-      <li>$task.getDescription()</li>
+      <li><a href="/tasks/$task.getId()">$task.getDescription()</a></li>
     #end
   </ul>
 #else
